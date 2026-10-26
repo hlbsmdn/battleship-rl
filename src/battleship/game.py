@@ -63,3 +63,43 @@ def show(board):
             else:
                 print("#", end=" ")
         print()
+
+
+class Game:
+    def __init__(self, board_size, fleet, rng):
+        self.board_size = board_size
+        self.board = place_ships(board_size, fleet, rng)
+
+        # 0 = unknown, 1 = miss, 2 = hit, 3 = sunk
+        self.shots = np.zeros((board_size, board_size), dtype=np.int8)
+
+        ship_lengths = np.bincount(self.board.ravel())[1:]
+        self.cells_left = dict(enumerate(ship_lengths, start=1))
+        self.ships_left = len(ship_lengths)
+
+    @property
+    def is_over(self):
+        return self.ships_left == 0
+
+    def shoot(self, row, col):
+        if not (0 <= row < self.board_size and 0 <= col < self.board_size):
+            raise ValueError("Shot is outside the board")
+
+        if self.shots[row, col] != 0:
+            raise ValueError("Already shot at this cell")
+
+        ship_id = self.board[row, col]
+
+        if ship_id == 0:
+            self.shots[row, col] = 1
+            return "miss"
+
+        self.cells_left[ship_id] -= 1
+
+        if self.cells_left[ship_id] == 0:
+            self.shots[self.board == ship_id] = 3
+            self.ships_left -= 1
+            return "sunk"
+
+        self.shots[row, col] = 2
+        return "hit"
