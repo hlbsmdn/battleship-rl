@@ -33,5 +33,5 @@ def test_random_bot_returns_plain_ints_on_unshot_cells():
 def test_random_bot_raises_when_no_cells_left():
     shots = np.ones((6, 6), dtype=np.int8)
 
-    with pytest.raises(ValueError, match="No unshot cells"):
+    with pytest.raises(ValueError, match="no unshot cells left to shoot at"):
         RandomBot().choose_shot(shots, np.random.default_rng(0))

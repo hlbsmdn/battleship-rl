@@ -22,7 +22,7 @@ def place_ships(board_size, fleet, rng, max_attempts=1000):
         if success:
             return board
 
-    raise ValueError("Could not place all ships")
+    raise ValueError("wasnt able to place all of the ships ")
 
 
 def _place_one(board, length, ship_id, rng, max_tries=200):
@@ -83,10 +83,10 @@ class Game:
 
     def shoot(self, row, col):
         if not (0 <= row < self.board_size and 0 <= col < self.board_size):
-            raise ValueError("Shot is outside the board")
+            raise ValueError("shot is outside board")
 
         if self.shots[row, col] != 0:
-            raise ValueError("Already shot at this cell")
+            raise ValueError("it have already shot at this cell")
 
         ship_id = self.board[row, col]
 

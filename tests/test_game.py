@@ -102,17 +102,17 @@ def test_repeat_shot_raises():
     game = make_game()
     game.shoot(0, 0)
 
-    with pytest.raises(ValueError, match="Already shot"):
+    with pytest.raises(ValueError, match="it have already shot at this cell"):
         game.shoot(0, 0)
 
 
 def test_shot_outside_board_raises():
     game = make_game()
 
-    with pytest.raises(ValueError, match="outside the board"):
+    with pytest.raises(ValueError, match="shot is outside board"):
         game.shoot(-1, 0)
 
-    with pytest.raises(ValueError, match="outside the board"):
+    with pytest.raises(ValueError, match="shot is outside board"):
         game.shoot(0, 6)
 
 
