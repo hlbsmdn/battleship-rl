@@ -103,3 +103,16 @@ def test_choose_action_preserves_network_mode():
     network.eval()
     choose_action(network, observation, legal, 0.0, rng)
     assert not network.training
+
+
+def test_random_choice_explores_all_legal_cells():
+    network = QNetwork()
+    observation = np.zeros((4, 6, 6), dtype=np.float32)
+    rng = np.random.default_rng(2)
+
+    legal = np.zeros(36, dtype=bool)
+    legal[[8, 9]] = True
+
+    chosen = {choose_action(network, observation, legal, 1.0, rng) for _ in range(100)}
+
+    assert chosen == {8, 9}
