@@ -1,10 +1,10 @@
 [project]
 name = "battleship"
 version = "0.1.0"
-description = "Add your description here"
+description = "Reinforcement learning agent that learns to play Battleship"
 readme = "README.md"
 authors = [
-    { name = "hlbsmdn", email = "hlibsamodin11@gmail.com" }
+    { name = "hlbsmdn" }
 ]
 requires-python = ">=3.14"
 dependencies = [
